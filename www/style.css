@@ -1,0 +1,200 @@
+body{
+  background-image: url("1.jpg");
+  background-size: cover;
+}
+.bar-bottom{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  background-color: rgba(194,178,128,.5);
+  height: 50px;
+}
+.bar-bottom li{
+  list-style-type: none;
+  padding-left: 0;
+}
+.bar-bottom ul{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.bar-bottom a{
+  text-decoration: none;
+  color: black;
+  border: 1px solid white;
+  padding: 7px;
+  border-radius: 1rem;
+  background-color: white;
+}
+h1{
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  position: fixed;
+  top: 0;
+}
+.steps{
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  position: fixed;
+  top: 0;
+  margin-top: 4rem;
+}
+.character{
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 60px;
+  width: 150px;
+  height: 200px;
+  margin-left: 90px;
+}
+.hair{
+  position: absolute;
+  margin-left: 20px;
+  z-index: 2;
+  animation-name: hairmove;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.head{
+  position: absolute;
+  margin-left: 47px;
+ margin-top: 15px;
+ z-index: 1;
+ animation-name: headmove;
+ animation-duration: 2s;
+ animation-iteration-count: infinite;
+}
+.leftarm{
+  position: absolute;
+  margin-left: 85px;
+  margin-top: 100px;
+  animation-name: armsmove;
+  animation-iteration-count: infinite;
+  animation-duration: 4s;
+  animation-timing-function: linear;
+}
+
+.legs{
+
+  position: absolute;
+  margin-left: 50px;
+  margin-top: 140px;
+}
+.rightarm{
+
+  position: absolute;
+  margin-left: 43px;
+  margin-top: 100px;
+  z-index: 3;
+  animation-name: armsmove2;
+  animation-iteration-count: infinite;
+  animation-duration: 4s;
+  animation-timing-function: linear;
+  animation-delay: 1s;
+}
+
+
+@keyframes armsmove {
+  0%{
+    transform: rotate(0deg);
+  }
+  50%{
+    transform: rotate(-15deg);
+  }
+  100%{
+    transform: rotate(0deg);
+  }
+}
+@keyframes armsmove2 {
+  0%{
+    transform: rotate(0deg);
+  }
+  50%{
+    transform: rotate(-15deg);
+  }
+  100%{
+    transform: rotate(0deg);
+  }
+}
+.torso{
+  position: absolute;
+  margin-left: 50px;
+  margin-top: 90px;
+  z-index: 0;
+}
+.eye1{
+  position: absolute;
+  z-index: 4;
+  height: 9px;
+  width: 4px;
+  border: 2px solid black;
+  border-radius: 4px;
+  background-color: black;
+  margin-left: 103px;
+  margin-top: 65px;
+  animation-name: blink;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+.eye2{
+  position: absolute;
+  z-index: 4;
+  height: 9px;
+  width: 4px;
+  border: 2px solid black;
+  border-radius: 4px;
+  background-color: black;
+  margin-left: 114px;
+  margin-top: 65px;
+  animation-name: blink;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+.shadow{
+  position: absolute;
+  z-index: -1;
+  height: 25px;
+  width: 100px;
+  border-radius: 10px 10px 30px 30px;
+  background-color: rgba(0, 0, 0, .6);
+  box-shadow: 3px 5px 5px black;
+  margin-left: 40px;
+  margin-top: 155px;
+}
+@keyframes blink {
+  0%{height: 3px;}
+  10%{height: 9px;}
+  100%{height: 9px;}
+}
+@keyframes headmove {
+  0%{margin-top: 15px;}
+  50%{margin-top: 17px;}
+  100%{margin-top: 15px;}
+}
+@keyframes hairmove {
+  0%{margin-top: 0px;}
+  50%{margin-top: 2px;}
+  100%{margin-top: 0px;}
+}
+
+.couponimg{
+  width: 40vh;
+  justify-content: center;
+  margin-top: 35%;
+  margin-left: 10%;
+  visibility: hidden;
+  /* animation-name: jump; */
+  animation-iteration-count: infinite;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+}
+@keyframes jump {
+  0%{
+    transform: scale(1);
+  }
+  100%{
+    transform: scale(1.2);
+  }
+}

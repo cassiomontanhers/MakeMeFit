@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<title>Make me fit!</title>
+  <style type="text/css">
+  </style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <link rel="stylesheet" href="style.css">
+<body>
+  <h1>Make Me Fit!</h1>
+
+  <div class="steps">Move!</div>
+  <img class="couponimg" src="coupon1.png" alt="">
+
+  <div class="character">
+    <img class="hair" src="img/outfits/hair.png" alt="Hair">
+    <img class="head" src="img/outfits/head.png" alt="head">
+    <img class="leftarm" src="img/outfits/leftArm.png" alt="left arm">
+    <img class="legs" src="img/outfits/legs.png" alt="legs">
+    <img class="rightarm" src="img/outfits/rightArm.png" alt="right arm">
+    <img class="torso" src="img/outfits/torso.png" alt="torso">
+    <div class="eye1"></div>
+    <div class="eye2"></div>
+    <div class="shadow">
+
+    </div>
+  </div>
+
+  <nav class="bar-bottom">
+    <ul>
+      <li><a href="#">HOME</a></li>
+      <li><a href="#">STORE</a></li>
+      <li><a href="#">SETTINGS</a></li>
+    </ul>
+  </nav>
+
+  <script type="text/javascript" src="motionstack-v1.2.0.min.js"></script>
+  <script type="text/javascript">
+
+    var
+        steps = document.querySelector(".steps"),
+        currentPosition = 0,
+        rotate = 45; //degrees
+
+    var pedometer = new MotionStack.Pedometer();
+
+    pedometer.start(function(e) {
+    steps.textContent = "Movements: " + e.stepCount;
+    if (e.stepCount>7) {
+      document.getElementsByClassName('couponimg')[0].style.visibility="visible";
+      document.getElementsByClassName('couponimg')[0].style.animationName="jump";
+    }
+    });
+
+
+  </script>
+
+</body>
+</html>

@@ -37,6 +37,12 @@
   <script type="text/javascript" src="motionstack-v1.2.0.min.js"></script>
   <script type="text/javascript">
 
+    // localStorage.setItem('key',0);
+
+    var oldSteps = parseInt(localStorage.getItem('key'));
+
+    alert(oldSteps);
+
     var
         steps = document.querySelector(".steps"),
         currentPosition = 0,
@@ -45,11 +51,15 @@
     var pedometer = new MotionStack.Pedometer();
 
     pedometer.start(function(e) {
-    steps.textContent = "Movements: " + e.stepCount;
+
+      var stepsi = parseInt(oldSteps) + parseInt(e.stepCount);
+
+    steps.textContent = "Movements: " + stepsi;
     if (e.stepCount>7) {
       document.getElementsByClassName('couponimg')[0].style.visibility="visible";
       document.getElementsByClassName('couponimg')[0].style.animationName="jump";
     }
+    localStorage.setItem('key',stepsi);
     });
 
 

@@ -37,6 +37,18 @@
   <script type="text/javascript" src="motionstack-v1.2.0.min.js"></script>
   <script type="text/javascript">
 
+
+  var db = sqlitePlugin.openDatabase('mydb.db', '1.0', '', 1);
+  db.transaction(function (txn) {
+    txn.executeSql('CREATE DATABASE makemefitbase;', [], function (tx, res) {
+      console.log(res.rows.item(0)); // {"answer": 42}
+    });
+
+    txn.executeSql('CREATE TABLE user (steps integer,coins integer);', [], function (tx, res) {
+      console.log(res.rows.item(0)); // {"answer": 42}
+    });
+  });
+
     var
         steps = document.querySelector(".steps"),
         currentPosition = 0,

@@ -1,0 +1,43 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-battery-status": {
+            "PACKAGE_NAME": "ca.eduardolanda"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "ca.eduardolanda"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "ca.eduardolanda"
+        },
+        "cordova-plugin-contacts": {
+            "PACKAGE_NAME": "ca.eduardolanda"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "ca.eduardolanda"
+        },
+        "cordova-plugin-device-motion": {
+            "PACKAGE_NAME": "ca.eduardolanda"
+        },
+        "cordova-plugin-device-orientation": {
+            "PACKAGE_NAME": "ca.eduardolanda"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "ca.eduardolanda"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "ca.eduardolanda"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "ca.eduardolanda"
+        }
+    }
+}

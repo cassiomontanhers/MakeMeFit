@@ -6,31 +6,67 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="icomoon/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <body>
   <h1>Make Me Fit!</h1>
 
   <div class="steps">Move!</div>
-  <img class="couponimg" src="coupon1.png" alt="">
+  <img class="couponimg" src="coupon2.png" alt="">
+  <h2 class="fitCoins">Fit Coins  <span id="totalCoins"></span></h2>
 
   <div class="character">
-    <img class="hair" src="img/outfits/hair.png" alt="Hair">
-    <img class="head" src="img/outfits/head.png" alt="head">
-    <img class="leftarm" src="img/outfits/leftArm.png" alt="left arm">
-    <img class="legs" src="img/outfits/legs.png" alt="legs">
-    <img class="rightarm" src="img/outfits/rightArm.png" alt="right arm">
-    <img class="torso" src="img/outfits/torso.png" alt="torso">
+        <img class="head" src="img/outfits/head3.png" alt="head">
+    <img class="hair" src="img/outfits/hair3.png" alt="Hair">
+    <img class="leftarm" src="img/outfits/leftArm3.png" alt="left arm">
+    <img class="torso" src="img/outfits/torso3.png" alt="torso">
+    <img class="rightarm" src="img/outfits/rightArm3.png" alt="right arm">
+    <img class="legs" src="img/outfits/legs3.png" alt="torso">
     <div class="eye1"></div>
     <div class="eye2"></div>
     <div class="shadow">
 
     </div>
   </div>
+  <div id="ex1" class="modal">
+    <div class="closetdiv">
+      <h2>Pick your Outfit!</h2>
+    <div class="hairbox"><img id="hair" src="img/outfits/hair3.png" alt="Hair"></div>
+    <div class="headbox"><img id="head" src="img/outfits/head3.png" alt="head"></div>
+    <div class="leftarmbox"><img id="leftarm" src="img/outfits/leftArm3.png" alt="left arm"></div>
+    <div class="rightarmbox"><img id="rightarm" src="img/outfits/rightArm3.png" alt="right arm"></div>
+    <div class="torsobox"><img id="torso" src="img/outfits/torso3.png" alt="torso"></div>
+    <div class="legbox"><img id="legs" src="img/outfits/legs3.png" alt="legs"></div>
+  </div>
+<a href="#" rel="modal:close"></a>
+</div>
+
+<div id="ex2" class="modal">
+  <h2 class="fitCoins">Fit Coins  <span id="totalCoins"></span></h2>
+  <div class="closetdiv">
+    <h2>App Store</h2>
+  <div class="hairbox"><img id="hair" src="img/outfits/hair3.png" alt="Hair"></div>
+  <div class="headbox"><img id="head" src="img/outfits/head3.png" alt="head"></div>
+  <div class="leftarmbox"><img id="leftarm" src="img/outfits/leftArm3.png" alt="left arm"></div>
+  <div class="rightarmbox"><img id="rightarm" src="img/outfits/rightArm3.png" alt="right arm"></div>
+  <div class="torsobox"><img id="torso" src="img/outfits/torso3.png" alt="torso"></div>
+  <div class="legbox"><img id="legs" src="img/outfits/legs3.png" alt="legs"></div>
+</div>
+<a href="#" rel="modal:close"></a>
+</div>
+
+
+
+
 
   <nav class="bar-bottom">
     <ul>
-      <li><a href="#">HOME</a></li>
-      <li><a href="#">STORE</a></li>
-      <li><a href="#">SETTINGS</a></li>
+      <a  id="ninja" href="#"><img class="logo" src="logo.svg" alt="LOGO"></a>
+      <a  id="closet" href="#ex1" rel="modal:open"></a>
+      <a  id="store"  href="#ex2" rel="modal:open"></a>
+      <a  id="close" href="#"></a>
     </ul>
   </nav>
 
@@ -39,9 +75,23 @@
 
     // localStorage.setItem('key',0);
 
-    var oldSteps = parseInt(localStorage.getItem('key'));
 
-    alert(oldSteps);
+       // localStorage.setItem('key',0)
+    // if(isNaN(oldSteps){
+    //   localStorage.setItem('key',0);
+    // }
+    //
+
+
+      function movements(){
+        var oldStepsAsString = localStorage.getItem('key');
+        if (oldStepsAsString === undefined) {
+          oldStepsAsString = 0;
+        }
+
+        var oldSteps = parseInt(oldStepsAsString);
+    //
+    // alert(oldSteps);
 
     var
         steps = document.querySelector(".steps"),
@@ -51,7 +101,9 @@
     var pedometer = new MotionStack.Pedometer();
 
     pedometer.start(function(e) {
-
+      if (oldSteps == '' || oldSteps == undefined || isNaN(oldSteps)) {
+        oldSteps = 0;
+      }
       var stepsi = parseInt(oldSteps) + parseInt(e.stepCount);
 
     steps.textContent = "Movements: " + stepsi;
@@ -60,6 +112,25 @@
       document.getElementsByClassName('couponimg')[0].style.animationName="jump";
     }
     localStorage.setItem('key',stepsi);
+    });
+    }
+    movements();
+
+    //jQuery
+    jQuery(function($){
+    //Write normal jQuery as normal
+    $("#ninja").click(function(){
+        $("#closet").slideToggle("slow");
+        $("#store").slideToggle("slow");
+        $("#close").slideToggle("slow");
+    })
+
+    $("#close").click(function(){
+        $("#closet").hide("slow");
+        $("#store").hide("slow");
+        $("#close").hide("slow");
+    })
+
     });
 
 

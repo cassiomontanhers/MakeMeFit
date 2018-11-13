@@ -70,7 +70,7 @@ color: #DB730B;
   padding-bottom: 0;
 
 }
-#ex1, #ex2{
+#modalCloset, #modalStore{
   background-color: #112A54;
 }
 
@@ -148,10 +148,10 @@ h1{
   position: absolute;
   margin-left: 15px;
   margin-top: 125px;
-  z-index: 1;
+  z-index: 0;
 }
-.rightarm{
 
+.rightarm{
   position: absolute;
   margin-left: 0px;
   margin-top: 100px;
@@ -160,7 +160,7 @@ h1{
   animation-duration: 4s;
   animation-timing-function: linear;
   animation-delay: 1s;
-  z-index: 2;
+  z-index: 1;
 }
 
 
@@ -266,7 +266,8 @@ h1{
     transform: scale(1.2);
   }
 }
-.closetdiv{
+
+.storediv{
   display: grid;
   grid-template-columns: 100px 100px 100px;
   grid-template-rows: repeat(4,100px);
@@ -274,6 +275,23 @@ h1{
   margin-left: 0;
   justify-content: center;
 }
+
+.closetdiv, .storediv{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 100%;
+  /* padding-left: 0;
+  margin-left: 0;
+  justify-content: center; */
+}
+
+.closetdiv div, .storediv div{
+  flex-shrink: 1;
+  flex-basis: 280px;
+}
+
+
 .hairbox{
   justify-self:center;
   grid-column: 2/3;
@@ -315,9 +333,13 @@ h1{
   grid-row: 3/4;
 }
 
-.closetdiv h2{
+.closetdiv h2, .storediv h2{
   text-align: center;
   color: #DB730B;
+}
+
+.bar-bottom ul{
+  padding: 0;
 }
 
 .bar-bottom a{
@@ -340,10 +362,61 @@ a:before{
   margin-right: 100px;
 }
 
-#ex2 .fitCoins{
-  position: absolute;
-  margin-top: 10px;
-  margin-right: 10px;
+#modalStore .fitCoins{
+  /* position: absolute; */
+  /* margin-top: 10px; */
+  /* margin-right: 10px; */
+}
+
+
+.selected{
+  transition: all 0.3s;
+  background-color: #DB730B;
+}
+
+
+
+
+.btn{
+  border-radius: 5px;
+  background-color: #DB730B;
+  border: 0.2rem solid #9A7D0A;
+  color: white;
+  padding: 1rem;
+  grid-row: 2 / 3;
+}
+
+.btnSelected{
+  border-color: grey;
+  background-color: darkgrey;
+  color: black;
+}
+
+.outfitSelectContainer{
+  margin:0.5rem 0 0.5rem 0;
+  display: grid;
+  grid-template-rows: 2;
+  grid-template-columns: 1;
+  border-radius: 5px;
+  border: 0.2rem solid white;
+}
+
+.owned{
+  transition: all 0.3s;
+  background-color: #DB730B;
+  border-color: grey;
+}
+
+.storediv .outfitSelect{
+  /* position: absolute; */
+  height: 230px;
+  grid-row: 1 / 2;
+}
+
+.closetdiv .outfitSelect{
+  margin:0.5rem 0 0.5rem 0;
+  border: 0.2rem solid white;
+  border-radius: 5px;
 }
 
 }

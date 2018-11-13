@@ -24,7 +24,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.fitCoins:after {
+.coins:after {
   content: "\e93b";
   color: darkorange;
 }

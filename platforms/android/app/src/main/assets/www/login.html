@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<title>Make me fit!</title>
+  <style type="text/css">
+  </style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <link rel="stylesheet" href="css/login.css">
+  <link href="https://fonts.googleapis.com/css?family=Signika:400,700" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
+  <script id="fapp" src="https://www.gstatic.com/firebasejs/5.5.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+
+<body>
+  <div class="wrapper">
+
+    <main>
+      <h1>Make Me Fit!</h1>
+      <h2>Welcome</h2>
+      <img class="logo" src="img/logo.svg" alt="LOGO">
+    </main>
+
+    <div class="loginfo">
+      <form>
+        <label>Email:</label>
+        <input id="email" type="email" />
+        <br />
+        <label>Password:</label>
+        <input id="password" type="password" />
+        <br />
+      </form>
+      <div class="btns">
+        <button id="signUp" >Sign Up</button>
+        <button id="signIn" >Sign In</button>
+      </div>
+    </div>
+
+
+  </div>
+
+  <script type="text/javascript" src="js/appAuth.js"></script>
+  <!-- <script type="text/javascript" src="js/appUsr.js"></script> -->
+  <!-- <script type="text/javascript" src="js/app.js"></script> -->
+
+</body>
+</html>

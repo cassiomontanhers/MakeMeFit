@@ -1,0 +1,84 @@
+*{
+  font-family: 'Signika', sans-serif;
+  color: #DB730B;
+}
+
+body{
+  background-color: #112A54;
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+}
+
+h1, h2{
+  text-align: center;
+}
+
+img{
+  width: 80%;
+  height: auto;
+  display: block;
+  margin: auto;
+}
+
+main{
+  align-self: center;
+  /* border-bottom: 1px solid white; */
+}
+
+.wrapper{
+  display: grid;
+  grid-template-rows: 70vh 30vh;
+  /* position: relative;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: fit-content; */
+}
+
+
+/* ============================================FORM */
+.loginfo{
+  box-shadow: 0px -15px 8px rgb(100,100,100,0.5);
+  background-color: rgb(100,100,100,0.5);
+  height: auto;
+  display: grid;
+}
+
+form{
+  grid-row: 1 / 2;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  width: 90%;
+  align-self: center;
+  justify-self: center;
+}
+form label{
+  grid-column: 1 / 2;
+  align-self: center;
+  justify-self: center;
+}
+form input{
+  grid-column: 2 / 3;
+  /* width: 100%; */
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  background-color: #112A54;
+}
+.btns{
+  text-align: center;
+  grid-row: 2 / 3;
+  grid-column: 1 / 2;
+}
+.btns button{
+  border-radius: 5%;
+  padding: 3% 10% 3% 10%;
+  margin: 3%;
+  border-color: #DB730B;
+  background-color: #DB730B;
+  color: #112A54;
+}

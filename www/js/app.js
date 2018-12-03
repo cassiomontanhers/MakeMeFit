@@ -7,7 +7,11 @@
 // }
 //
 
+$(".character").css("display", "none");
+$(".loading").css("display", "block");
 
+
+const btnSignOut = document.getElementById("signOut");
 
 
 var usuarioId;
@@ -46,18 +50,38 @@ function movements(){
 
       if(lastDigit == '0'){
         userAddSteps(stepsi);
-      }
-
-      if(lastTwoDigits == "00"){
         coins++;
         userAddCoins(coins);
       }
 
+      if(lastTwoDigits == "00"){
+      }
+
       steps.textContent = "Movements: " + stepsi;
-      // if (e.stepCount>7) {
-      //   document.getElementsByClassName('couponimg')[0].style.visibility="visible";
-      //   document.getElementsByClassName('couponimg')[0].style.animationName="jump";
-      // }
+      if (lastTwoDigits == 20) {
+        addCupom(7);
+        $(".couponimg").css("display","block");
+        $(".couponimg").css("animationName","jump");
+
+        setTimeout(function(){
+          $(".couponimg").css("display","none");
+        }, 10000);
+        ownedCupoms.push(7);
+        resetCupoms();
+        ownedCupoms=[];
+      }
+
+      if (lastTwoDigits == 40) {
+        addCupom(9);
+        $(".couponimg").css("display","block");
+        $(".couponimg").css("animationName","jump");
+
+        setTimeout(function(){
+          $(".couponimg").css("display","none");
+        }, 10000);
+        ownedCupoms.push(9);
+        resetCupoms();
+      }
       // localStorage.setItem('key',stepsi);
 
 
@@ -74,15 +98,17 @@ jQuery(function($){
       $("#closet").slideToggle("slow");
       $("#store").slideToggle("slow");
       $("#close").slideToggle("slow");
+      $("#cupom").slideToggle("slow");
   })
 
   $("#close").click(function(){
       $("#closet").hide("slow");
       $("#store").hide("slow");
       $("#close").hide("slow");
+      $("#cupom").hide("slow");
   })
 
-  $(".closetdiv").on('click', '.outfitSelect', function(){
+  $(".closetdiv").on('click', '.outfitCloset', function(){
     var idSelected = $(this).attr("id");
 
     $('.character .head').attr("src","img/outfits/head"+outfits[idSelected].imgCode+".png");
@@ -92,7 +118,7 @@ jQuery(function($){
     $('.character .rightarm').attr("src","img/outfits/rightarm"+outfits[idSelected].imgCode+".png");
     $('.character .legs').attr("src","img/outfits/legs"+outfits[idSelected].imgCode+".png");
 
-    $('.closetdiv .outfitSelect').removeClass('selected');
+    $('.outfitCloset').removeClass('selected');
     $(this).addClass('selected');
 
     setUserOutfit(outfits[idSelected].imgCode);
@@ -102,7 +128,7 @@ jQuery(function($){
 
   $(".btn").on('click', function(){
 
-    var idSelected = $(this).parent().find(".outfitSelect").attr("id");
+    var idSelected = $(this).parent().find(".outfitStore").attr("id");
 
     if($(this).html() != "OWNED"){
       if(window.confirm("Pay "+outfits[idSelected].value+" for this outfit?")){
@@ -110,7 +136,7 @@ jQuery(function($){
         if(coins > outfits[idSelected].value){
 
           coins = coins-outfits[idSelected].value;
-          $('.coins').html(coins);
+          // $('.coins').html(coins);
           userAddCoins(coins);
 
           $(this).parent().addClass('owned');
@@ -120,7 +146,7 @@ jQuery(function($){
 
           addOutfit(idSelected);
 
-          ownedOutfits.push(outfits[$(this).parent().find(".outfitSelect").attr("id")]);
+          ownedOutfits.push(outfits[$(this).parent().find(".outfitStore").attr("id")]);
 
           // console.log(ownedOutfits);
           resetCloset();
@@ -144,26 +170,123 @@ function Outfit(id, name, value, imgCode){
   this.imgCode = imgCode;
 }
 
-function resetCloset(){
-  console.log("clovis");
-  $(".closetdiv .outfitSelect").detach();
-  // console.log(ownedOutfits);
+function Cupom(id, company, offer, redeem){
+  this.id = id;
+  this.company = company;
+  this.offer = offer;
+  this.redeem = redeem;
+}
+
+function resetCloset(userSavedOutfit){
+  $(".closetdiv .outfitCloset").detach();
   for (outfit in ownedOutfits) {
-    console.log("clovis A");
-    printCharacterClosetOutfit(".closetdiv",ownedOutfits[outfit]);
+    console.log("=======---------");
+    console.log(ownedOutfits[outfit].id);
+    if(ownedOutfits[outfit].imgCode == userSavedOutfit){
+      printCharacterClosetOutfit(".closetdiv",ownedOutfits[outfit], true);
+    }else{
+      printCharacterClosetOutfit(".closetdiv",ownedOutfits[outfit], false);
+    }
+  }
+  console.log("=======");
+  console.log(ownedOutfits);
+  console.log(outfits);
+  console.log("=======+");
+
+
+  for (var i = 0; i < outfits.length; i++) {
+    var cont = false;
+    for (var j = 0; j < ownedOutfits.length; j++) {
+      if(outfits[i].id == ownedOutfits[j].id){
+        cont = true;
+      }
+    }
+    if(outfits[i].id != 2){
+      printCharacterStoreOutfit(".storediv",outfits[i],cont);
+    }
+  }
+
+
+  // var cont = false;
+  // for (outfit in outfits) {
+  //   cont = false;
+  //   // console.log(outfits[outfit].name);
+  //   for (var ownOut in ownedOutfits) {
+  //     console.log(ownOut.id +" / "+ outfit.id);
+  //     console.log(ownOut);
+  //     console.log(outfit);
+  //     if (ownOut.id == outfit.id) {
+  //       cont = true;
+  //     }
+  //   }
+  //   if(outfit != 2){
+  //     if(cont == true){
+  //       printCharacterStoreOutfit(".storediv",outfits[outfit],true);
+  //     }else{
+  //       printCharacterStoreOutfit(".storediv",outfits[outfit],false);
+  //     }
+  //   }
+  // }
+}
+
+
+
+function printCharacterStoreOutfit(selector, outfit, status){
+  if(status != true){
+    $(selector).append("<div class='outfitStoreContainer'><div class='outfitStore "+status+"' id='"+outfit.id+"'><img class='head' src='img/outfits/head"+outfit.imgCode+".png' alt='head'><img class='hair' src='img/outfits/hair"+outfit.imgCode+".png' alt='Hair'><img class='leftarm' src='img/outfits/leftArm"+outfit.imgCode+".png' alt='left arm'><img class='torso' src='img/outfits/torso"+outfit.imgCode+".png' alt='torso'><img class='rightarm' src='img/outfits/rightArm"+outfit.imgCode+".png' alt='right arm'><img class='legs' src='img/outfits/legs"+outfit.imgCode+".png' alt='torso'></div><button type='button' class='btn available'>Buy $"+outfit.value+"</button></div>");
+  }else{
+    $(selector).append("<div class='outfitStoreContainer'><div class='outfitStore owned' id='"+outfit.id+"'><img class='head' src='img/outfits/head"+outfit.imgCode+".png' alt='head'><img class='hair' src='img/outfits/hair"+outfit.imgCode+".png' alt='Hair'><img class='leftarm' src='img/outfits/leftArm"+outfit.imgCode+".png' alt='left arm'><img class='torso' src='img/outfits/torso"+outfit.imgCode+".png' alt='torso'><img class='rightarm' src='img/outfits/rightArm"+outfit.imgCode+".png' alt='right arm'><img class='legs' src='img/outfits/legs"+outfit.imgCode+".png' alt='torso'></div><button type='button' class='btn available btnSelected'>OWNED</button></div>");
+  }
+}
+
+function printCharacterClosetOutfit(selector, outfit, status){
+  if(status == true){
+    $(selector).append("<div class='outfitCloset selected' id='"+outfit.id+"'><img class='head' src='img/outfits/head"+outfit.imgCode+".png' alt='head'><img class='hair' src='img/outfits/hair"+outfit.imgCode+".png' alt='Hair'><img class='leftarm' src='img/outfits/leftArm"+outfit.imgCode+".png' alt='left arm'><img class='torso' src='img/outfits/torso"+outfit.imgCode+".png' alt='torso'><img class='rightarm' src='img/outfits/rightArm"+outfit.imgCode+".png' alt='right arm'><img class='legs' src='img/outfits/legs"+outfit.imgCode+".png' alt='torso'></div>");
+  }else{
+    $(selector).append("<div class='outfitCloset' id='"+outfit.id+"'><img class='head' src='img/outfits/head"+outfit.imgCode+".png' alt='head'><img class='hair' src='img/outfits/hair"+outfit.imgCode+".png' alt='Hair'><img class='leftarm' src='img/outfits/leftArm"+outfit.imgCode+".png' alt='left arm'><img class='torso' src='img/outfits/torso"+outfit.imgCode+".png' alt='torso'><img class='rightarm' src='img/outfits/rightArm"+outfit.imgCode+".png' alt='right arm'><img class='legs' src='img/outfits/legs"+outfit.imgCode+".png' alt='torso'></div>");
   }
 }
 
 
 
-function printCharacterStoreOutfit(selector, outfit){
-  $(selector).append("<div class='outfitSelectContainer'><div class='outfitSelect' id='"+outfit.id+"'><img class='head' src='img/outfits/head"+outfit.imgCode+".png' alt='head'><img class='hair' src='img/outfits/hair"+outfit.imgCode+".png' alt='Hair'><img class='leftarm' src='img/outfits/leftArm"+outfit.imgCode+".png' alt='left arm'><img class='torso' src='img/outfits/torso"+outfit.imgCode+".png' alt='torso'><img class='rightarm' src='img/outfits/rightArm"+outfit.imgCode+".png' alt='right arm'><img class='legs' src='img/outfits/legs"+outfit.imgCode+".png' alt='torso'></div><button type='button' class='btn available'>Buy $"+outfit.value+"</button></div>");
+function printUserCupom(cupom){
+  console.log(cupom);
+  $(".cupomdiv").append('<div class="barcodediv"><div class="barcodedivinfo"><p>Company: <span>'+cupom.company+'</span></p><p>Offer: <span>'+cupom.offer+'</span></p><p>Redeem by: <span>'+cupom.redeem+'</span></p></div><svg class="barcode"jsbarcode-format="CODE39"jsbarcode-value="'+cupom.code+'"jsbarcode-textmargin="0"jsbarcode-fontoptions="bold"></svg></div>');
+  // $(".cupomdiv").append('
+  // <div class="barcodediv">
+  //   <div class="barcodedivinfo">
+  //     <p>Company: <span>'+cupom.company+'</span></p>
+  //     <p>Offer: <span>'+cupom.offer+'</span></p>
+  //     <p>Redeem by: <span>'+cupom.redeem+'</span></p>
+  //   </div>
+  //   <svg class="barcode"
+  //     jsbarcode-format="upc"
+  //     jsbarcode-value="'+cupom.code+'"
+  //     jsbarcode-textmargin="0"
+  //     jsbarcode-fontoptions="bold">
+  //   </svg>
+  // </div>
+  // ');
+  JsBarcode(".barcode").init();
 }
 
-function printCharacterClosetOutfit(selector, outfit){
-  $(selector).append("<div class='outfitSelect' id='"+outfit.id+"'><img class='head' src='img/outfits/head"+outfit.imgCode+".png' alt='head'><img class='hair' src='img/outfits/hair"+outfit.imgCode+".png' alt='Hair'><img class='leftarm' src='img/outfits/leftArm"+outfit.imgCode+".png' alt='left arm'><img class='torso' src='img/outfits/torso"+outfit.imgCode+".png' alt='torso'><img class='rightarm' src='img/outfits/rightArm"+outfit.imgCode+".png' alt='right arm'><img class='legs' src='img/outfits/legs"+outfit.imgCode+".png' alt='torso'></div>");
+function resetCupoms(){
+  $(".cupomdiv .barcodediv").detach();
+  // alert(ownedCupoms.length);
+  // console.log(ownedCupoms);
+  for (var j = 0; j < ownedCupoms.length; j++) {
+    // console.log("a");
+    for (var i = 0; i < cupoms.length; i++) {
+      // console.log("b");
+      // console.log(cupoms[i].id +" / "+ownedCupoms[j]);
+      if(ownedCupoms[j] == cupoms[i].id){
+        // console.log("c");
+        // console.log(cupoms[i]);
+        printUserCupom(cupoms[i]);
+      }
+    }
+  }
 }
-
 
 // var outfits = new Array();
 // console.log(typeof outfits);
@@ -201,19 +324,20 @@ new Outfit(5,"knight", 50, 6),
 new Outfit(6,"green ninja", 50, 7)];
 
 
-for (outfit in outfits) {
-  // console.log(outfits[outfit].name);
-  if(outfit != 2){
-    printCharacterStoreOutfit(".storediv",outfits[outfit]);
-  }
-}
+// for (outfit in outfits) {
+//   // console.log(outfits[outfit].name);
+//   if(outfit != 2){
+//     printCharacterStoreOutfit(".storediv",outfits[outfit]);
+//   }
+// }
+
+var ownedCupoms = new Array();
+var cupoms = new Array();
 
 function loadAssets(){
-  //do what you need here
-  // ownedOutfits.push(outfits[2]);
-  // loadOwnedOutfits();
-
-  resetCloset();
+  signInMethodINDEX();
+  btnSignOut.addEventListener("click", signOutMethod);
+  // resetCloset();
 }
 
 loadAssets();

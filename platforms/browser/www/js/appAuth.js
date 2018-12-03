@@ -23,8 +23,7 @@ document.addEventListener("DOMContentLoaded", function() { //you can also use wi
   const btnSignIn = document.getElementById("signIn");
   btnSignIn.addEventListener("click", signInMethod);
   //attach sign out method
-  const btnSignOut = document.getElementById("signOut");
-  btnSignOut.addEventListener("click", signOutMethod);
+
 });
 
 function signUpMethod() {
@@ -33,30 +32,56 @@ function signUpMethod() {
 
   firebase.auth().createUserWithEmailAndPassword(txtEmail.value, txtPassword.value)
   .then( () => {
-    log("Signed Up");
-    db.collection("user").add({ Name: "Test", coins: 0, steps: 0, userId: firebase.auth().currentUser.uid, outfit: 2});
+    alert("Signed Up - login:" + txtEmail.value);
+    db.collection("user").add({ Name: "Test", coins: 0, steps: 0, userId: firebase.auth().currentUser.uid, outfit: 3});
     db.collection("user_outfits").add({ outfitId: 2, userId: firebase.auth().currentUser.uid});
     })
   .catch((error) => {
-    log("failed : " + error)});
+    alert("failed : " + error)});
 
 }
 
 function signInMethod() {
-  const txtEmail = document.getElementById("email");
-  const txtPassword = document.getElementById("password");
 
-  firebase.auth().signInWithEmailAndPassword(txtEmail.value, txtPassword.value)
+  txtEmail = document.getElementById("email").value;
+  txtPassword = document.getElementById("password").value;
+  localStorage.setItem('user',txtEmail)
+  localStorage.setItem('pass',txtPassword);
+
+  firebase.auth().signInWithEmailAndPassword(txtEmail, txtPassword)
   .then( () => {
-    log("Signed In - "+firebase.auth().currentUser.uid) })
+      alert("Signed In");
+      window.location = "index.html";
+  })
   .catch((error) => {
-    log("failed : " + error)})
+    alert("Failed to Sign In")})
+}
+
+
+function signInMethodINDEX() {
+
+  var txtEmail = localStorage.getItem('user');
+  var txtPassword = localStorage.getItem('pass');
+
+  firebase.auth().signInWithEmailAndPassword(txtEmail, txtPassword)
+  .then( () => {
+    // alert("Signed In INDEX");
+    loadUserInfo();
+  })
+  .catch((error) => {
+    console.log(error);
+    alert("Failed to load user information. Log in first!");
+    window.location = "login.html";
+  })
 }
 
 function signOutMethod() {
  firebase.auth().signOut()
  .then( () => {
-   log("Signed Out") })
+   // log("Signed Out") })
+   alert("Signed Out.");
+   window.location.href = "login.html";
+ })
  .catch((error) => {
    log("failed : " + error)})
 }
@@ -64,17 +89,17 @@ function signOutMethod() {
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     log(JSON.stringify(user),"userDiv");
-    loadUserInfo();
+    // loadUserInfo();
   } else {
     log("no user", "userDiv");
   }
 });
 
 function log(msg, dom) {
-  console.log(msg);
-  dom = dom?dom:"msgDiv"
-  const targetDiv = document.getElementById(dom);
-  targetDiv.innerHTML = msg;
+  // console.log(msg);
+  // dom = dom?dom:"msgDiv"
+  // const targetDiv = document.getElementById(dom);
+  // targetDiv.innerHTML = msg;
 }
 
 function verifyUser(){

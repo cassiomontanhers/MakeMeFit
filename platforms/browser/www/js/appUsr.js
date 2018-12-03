@@ -19,8 +19,10 @@ function loadUserInfo(){
         loadOwnedCupoms(usuarioId);
         resetCupoms();
         // loadAssets();
-        $(".character").css("display", "block");
-        $(".loading").css("display", "none");
+        setTimeout(function(){
+          $(".character").css("display", "block");
+          $(".loading").css("display", "none");
+        }, 1000);
       });
     // }, 5000);
   })
@@ -131,8 +133,8 @@ function loadOwnedCupoms(id){
       // for (var i = 0; i < ownedCupoms.length; i++) {
         // console.log(ownedCupoms[i] + "HHHH");
       // }
-      // resetCupoms();
-    }, 4000);
+      resetCupoms();
+    }, 1000);
     console.log("final loadOwnedCupoms");
 }
 

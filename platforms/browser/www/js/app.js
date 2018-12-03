@@ -68,7 +68,6 @@ function movements(){
         }, 10000);
         ownedCupoms.push(7);
         resetCupoms();
-        ownedCupoms=[];
       }
 
       if (lastTwoDigits == 40) {
@@ -126,7 +125,9 @@ jQuery(function($){
   });
 
 
-  $(".btn").on('click', function(){
+  // $(".btn").on('click', function(){
+  $(".storediv").on('click', '.btn', function(){
+
 
     var idSelected = $(this).parent().find(".outfitStore").attr("id");
 
@@ -286,6 +287,7 @@ function resetCupoms(){
       }
     }
   }
+  ownedCupoms=[];
 }
 
 // var outfits = new Array();

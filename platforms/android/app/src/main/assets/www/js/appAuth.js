@@ -1,4 +1,3 @@
-// Initialize Firebase
 var config = {
   apiKey: "AIzaSyA5rdobqIa9lr4siwbfX1VvhzJedU1kD4I",
   authDomain: "makemefit-a189d.firebaseapp.com",
@@ -14,27 +13,28 @@ db.settings({
   timestampsInSnapshots: true
 });
 
-//once DOM is loaded attach button listeners
-document.addEventListener("DOMContentLoaded", function() { //you can also use window 'load' event instead
-  //attach sign up method
+document.addEventListener("DOMContentLoaded", function() {
   const btnSignUp = document.getElementById("signUp");
   btnSignUp.addEventListener("click", signUpMethod);
-  //attach sign in method
   const btnSignIn = document.getElementById("signIn");
   btnSignIn.addEventListener("click", signInMethod);
-  //attach sign out method
 
 });
 
 function signUpMethod() {
-  const txtEmail = document.getElementById("email");
-  const txtPassword = document.getElementById("password");
+  const txtEmail = document.getElementById("emailCreate");
+  const txtPassword = document.getElementById("passwordCreate");
+  const txtName = document.getElementById("nameCreate");
 
   firebase.auth().createUserWithEmailAndPassword(txtEmail.value, txtPassword.value)
   .then( () => {
-    alert("Signed Up - login:" + txtEmail.value);
-    db.collection("user").add({ Name: "Test", coins: 0, steps: 0, userId: firebase.auth().currentUser.uid, outfit: 3});
+    alert(txtName.value + " you successfully created an account, your login is:" + txtEmail.value);
+    db.collection("user").add({ name: txtName.value, coins: 0, steps: 0, userId: firebase.auth().currentUser.uid, outfit: 3});
     db.collection("user_outfits").add({ outfitId: 2, userId: firebase.auth().currentUser.uid});
+
+    document.getElementById("email").value = txtEmail.value;
+    document.getElementById("password").value = txtPassword.value;
+
     })
   .catch((error) => {
     alert("failed : " + error)});
@@ -51,7 +51,7 @@ function signInMethod() {
   firebase.auth().signInWithEmailAndPassword(txtEmail, txtPassword)
   .then( () => {
       alert("Signed In");
-      window.location = "index.html";
+      window.location = "main.html";
   })
   .catch((error) => {
     alert("Failed to Sign In")})
@@ -65,22 +65,19 @@ function signInMethodINDEX() {
 
   firebase.auth().signInWithEmailAndPassword(txtEmail, txtPassword)
   .then( () => {
-    // alert("Signed In INDEX");
     loadUserInfo();
   })
   .catch((error) => {
-    console.log(error);
     alert("Failed to load user information. Log in first!");
-    window.location = "login.html";
+    window.location = "index.html";
   })
 }
 
 function signOutMethod() {
  firebase.auth().signOut()
  .then( () => {
-   // log("Signed Out") })
    alert("Signed Out.");
-   window.location.href = "login.html";
+   window.location.href = "index.html";
  })
  .catch((error) => {
    log("failed : " + error)})
@@ -89,14 +86,13 @@ function signOutMethod() {
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     log(JSON.stringify(user),"userDiv");
-    // loadUserInfo();
   } else {
     log("no user", "userDiv");
   }
 });
 
 function log(msg, dom) {
-  // console.log(msg);
+  // //console.log(msg);
   // dom = dom?dom:"msgDiv"
   // const targetDiv = document.getElementById(dom);
   // targetDiv.innerHTML = msg;

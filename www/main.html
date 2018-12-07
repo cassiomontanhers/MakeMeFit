@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<title>Make me fit!</title>
+  <style type="text/css">
+  </style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/character.css">
+  <link rel="stylesheet" href="css/box.css">
+  <link rel="stylesheet" href="icomoon/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Signika:400,700" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
+  <script id="fapp" src="https://www.gstatic.com/firebasejs/5.5.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+  <script src="https://cdn.jsdelivr.net/jsbarcode/3.6.0/JsBarcode.all.min.js"></script>
+
+<body>
+
+  <a  id="info"  href="#authForm" rel="modal:open"></a>
+  <a  id="friends"  href="#friendsForm" rel="modal:open"></a>
+  <h1>Make Me Fit!</h1>
+
+  <div class="steps">Move!</div>
+  <h2 class="fitCoins">Fit Coins: <span class="coins" id="totalCoins"></span><span class="coinSymbol"></span></h2>
+  <img class="couponimg" src="img/coupon2.png" alt="">
+
+  <div class="loading">
+    <div class="rotating-box">
+      <div class="single-rb">
+        <div class="front-side">
+          <img src="img/ninjalogo.png" alt="logo">
+        </div>
+        <div class="back-side">
+          <img src="img/ninjalogo.png" alt="logo">
+        </div>
+        <div class="left-side">
+          <img src="img/ninjalogo.png" alt="logo">
+        </div>
+        <div class="right-side">
+          <img src="img/ninjalogo.png" alt="logo">
+        </div>
+        <div class="top-side">
+          <img src="img/ninjalogo.png" alt="logo">
+        </div>
+        <div class="bottom-side">
+          <img src="img/ninjalogo.png" alt="logo">
+        </div>
+      </div>
+    </div>
+    <span class="loading-warn">Loading...</span>
+  </div>
+
+  <div class="character">
+    <img class="head" src="img/outfits/head3.png" alt="head">
+    <img class="hair" src="img/outfits/hair3.png" alt="Hair">
+    <img class="leftarm" src="img/outfits/leftarm3.png" alt="left arm">
+    <img class="torso" src="img/outfits/torso3.png" alt="torso">
+    <img class="rightarm" src="img/outfits/rightarm3.png" alt="right arm">
+    <img class="legs" src="img/outfits/legs3.png" alt="torso">
+    <div class="eye1"></div>
+    <div class="eye2"></div>
+    <div class="shadow"></div>
+  </div>
+
+  <div id="friendsForm" class="modal">
+    <h2>Friends</h2>
+    <p>Comming Soon...</p>
+  </div>
+
+  <div id="authForm" class="modal">
+    <h2>Account</h2>
+    <form>
+      <p id="nameAccount"></p>
+      <br>
+      <p id="emailAccount"></p>
+    </form>
+    <div class="btns">
+      <button id="signOut" >Sign Out</button>
+    </div>
+  </div>
+
+  <div id="modalCloset" class="modal">
+    <h2>Pick your Outfit!</h2>
+    <div class="closetdiv">
+      <!-- OUTFITS ARE PRINTED HERE -->
+    </div>
+    <a href="#" rel="modal:close"></a>
+  </div>
+
+  <div id="modalStore" class="modal">
+    <h2>App Store</h2>
+    <h2>Fit Coins:  <span class="coins"></span><span class="coinSymbol"></span></h2>
+    <div class="storediv">
+      <!-- OUTFITS ARE PRINTED HERE -->
+    </div>
+    <a href="#" rel="modal:close"></a>
+  </div>
+
+  <div id="modalCupom" class="modal">
+    <h2>Cupoms Earned</h2>
+    <div class="cupomdiv">
+      <!-- CUPOMS ARE PRINTED HERE -->
+    </div>
+    <a href="#" rel="modal:close"></a>
+  </div>
+
+  <nav class="bar-bottom">
+    <ul>
+      <a  id="ninja" href="#"><img class="logo" src="img/logo.svg" alt="LOGO"></a>
+      <a  id="closet" href="#modalCloset" rel="modal:open"></a>
+      <a  id="store"  href="#modalStore" rel="modal:open"></a>
+      <a  id="cupom"  href="#modalCupom" rel="modal:open"></a>
+    </ul>
+  </nav>
+
+  <script type="text/javascript" src="js/motionstack-v1.2.0.min.js"></script>
+  <script type="text/javascript" src="js/appAuth.js"></script>
+  <script type="text/javascript" src="js/appUsr.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+  <script type="text/javascript" src="js/bar.js"></script>
+
+</body>
+</html>

@@ -132,6 +132,19 @@
     z-index: 1;
     right: 5%;
   }
+  #friends{
+    background-color: #112A54;
+    padding: 5px;
+    border-radius: 1rem;
+    margin: auto;
+    justify-self:center;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: #DB730B;
+    position: absolute;
+    z-index: 1;
+    left: 5%;
+  }
   #ninja{
     grid-row: 2/3;
     grid-column: 1/4;

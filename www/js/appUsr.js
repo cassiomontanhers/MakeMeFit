@@ -3,14 +3,13 @@ var userSavedOutfit;
 function loadUserInfo(){
   usuarioId = firebase.auth().currentUser.uid;
 
-  // setTimeout(function(){
     db.collection("user").where("userId","==", firebase.auth().currentUser.uid)
     .get()
     .then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         var userCoins = doc.data().coins;
         userSavedOutfit = doc.data().outfit;
-        console.log(doc.id, " => ", doc.data());
+        loadAccountInfo(doc.data().name);
         loadSteps(doc.data().steps);
         loadCoins(userCoins);
         loadOwnedOutfits();
@@ -18,13 +17,11 @@ function loadUserInfo(){
         loadCupoms();
         loadOwnedCupoms(usuarioId);
         resetCupoms();
-        // loadAssets();
         setTimeout(function(){
           $(".character").css("display", "block");
           $(".loading").css("display", "none");
         }, 1000);
       });
-    // }, 5000);
   })
   .catch(function(error) {
     console.log("Error getting documents: ", error);
@@ -32,10 +29,15 @@ function loadUserInfo(){
 }
 
 db.collection("user").where("userId","==", firebase.auth().currentUser.uid).onSnapshot((querySnapshot) => {
-    querySnapshot.forEach((doc) => {  //if you want all
+    querySnapshot.forEach((doc) => {
       loadUserInfo();
     });
 });
+
+function loadAccountInfo(name){
+  $("#nameAccount").html("Name: "+name);
+  $("#emailAccount").html("Email: "+firebase.auth().currentUser.email);
+}
 
 function loadCoins(coinsL){
   coins=coinsL;
@@ -45,7 +47,6 @@ function loadCoins(coinsL){
 function loadSteps(stepsL){
   oldSteps = stepsL;
   $(".steps").html("Movements: " + stepsL);
-  // steps.textContent = "Movements: " + stepsL;
 }
 
 function userAddSteps(steps){
@@ -79,17 +80,13 @@ function userAddCoins(coins){
 function loadOwnedOutfits(){
     ownedOutfits = new Array();
     db.collection("user_outfits").where("userId","==", firebase.auth().currentUser.uid).onSnapshot((querySnapshot) => {
-        querySnapshot.forEach((doc) => {  //if you want all
-          console.log(doc.data().outfitId);
+        querySnapshot.forEach((doc) => {
           ownedOutfits.push(outfits[doc.data().outfitId]);
         });
     });
     setTimeout(function(){
-      console.log("TIMEOUT AGORA");
-      console.log(ownedOutfits);
       resetCloset(userSavedOutfit);
     }, 1000);
-    console.log("final loadOwnedOutfits");
 }
 
 
@@ -122,43 +119,25 @@ function addOutfit(outfitId){
 function loadOwnedCupoms(id){
     ownedCupoms = new Array();
     db.collection("user_cupom").where("userId","==", firebase.auth().currentUser.uid).onSnapshot((querySnapshot) => {
-        querySnapshot.forEach((doc) => {  //if you want all
-          // console.log(doc.data());
+        querySnapshot.forEach((doc) => {
           ownedCupoms.push(doc.data().cupomId);
         });
     });
     setTimeout(function(){
-      console.log("TIMEOUT CUPOM AGORA");
-      // alert(ownedCupoms);
-      // for (var i = 0; i < ownedCupoms.length; i++) {
-        // console.log(ownedCupoms[i] + "HHHH");
-      // }
       resetCupoms();
     }, 1000);
-    console.log("final loadOwnedCupoms");
 }
 
 function loadCupoms(){
     cupoms = new Array();
 
     db.collection("cupom").onSnapshot((querySnapshot) => {
-        querySnapshot.forEach((doc) => {  //if you want all
-          // console.log(doc.data());
+        querySnapshot.forEach((doc) => {
           cupoms.push(doc.data());
         });
     });
-    setTimeout(function(){
-      console.log("TIMEOUT CUPOM SAVED AGORA");
-      // console.log(cupoms);
-      for (var i = 0; i < cupoms.length; i++) {
-        // console.log(cupoms[i]);
-        // console.log("meu saci");
-      }
-    }, 1000);
-    console.log("final loadOwnedCupoms SAVED");
 }
 
 function addCupom(cupomId){
   db.collection("user_cupom").add({ cupomId: cupomId, userId: firebase.auth().currentUser.uid});
-  // loadOwnedCupoms();
 }

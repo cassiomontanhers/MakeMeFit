@@ -58,7 +58,7 @@ function movements(){
       }
 
       steps.textContent = "Movements: " + stepsi;
-      if (coins == 50) {
+      if (stepsi == 20) {
         addCupom(7);
         $(".couponimg").css("display","block");
         $(".couponimg").css("animationName","jump");
@@ -70,7 +70,7 @@ function movements(){
         resetCupoms();
       }
 
-      if (coins == 100) {
+      if (stepsi == 100) {
         addCupom(9);
         $(".couponimg").css("display","block");
         $(".couponimg").css("animationName","jump");
